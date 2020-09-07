@@ -24,8 +24,18 @@ public class GrammarExercise {
         //在这编写实现代码
         final String[] firstWords = firstWordList.toUpperCase().split(",");
         final String[] secondWords = secondWordList.toUpperCase().split(",");
+        isValidInput(firstWords);
+        isValidInput(secondWords);
         final SortedSet<String> commonWords = getCommonWords(firstWords, secondWords);
         return new ArrayList<>(commonWords);
+    }
+
+    private static void isValidInput(String[] words) {
+        Arrays.stream(words).forEach(word -> {
+            if (word.equals("") || !word.matches("^[A-Z]+$")) {
+                throw new RuntimeException("Invalid input!");
+            }
+        });
     }
 
     private static SortedSet<String> getCommonWords(String[] firstWords, String[] secondWords) {
@@ -41,7 +51,7 @@ public class GrammarExercise {
 
     private static String getWordWithSpace(String commonWord) {
         StringBuilder wordWithSpace = new StringBuilder();
-        Arrays.stream(commonWord.split("")).forEach((word) -> wordWithSpace.append(word).append(" "));
+        Arrays.stream(commonWord.split("")).forEach(word -> wordWithSpace.append(word).append(" "));
         return wordWithSpace.toString().trim();
     }
 }
