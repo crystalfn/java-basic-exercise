@@ -25,8 +25,7 @@ public class GrammarExercise {
         final String[] firstWords = firstWordList.toUpperCase().split(",");
         final String[] secondWords = secondWordList.toUpperCase().split(",");
         final SortedSet<String> commonWords = getCommonWords(firstWords, secondWords);
-        final SortedSet<String> commonWordsWithSpace = getCommonWordsWithSpace(commonWords);
-        return new ArrayList<>(commonWordsWithSpace);
+        return new ArrayList<>(commonWords);
     }
 
     private static SortedSet<String> getCommonWords(String[] firstWords, String[] secondWords) {
@@ -34,24 +33,15 @@ public class GrammarExercise {
         final SortedSet<String> commonWords = new TreeSet<>();
         for (String secondWord : secondWords) {
             if (firstWordsSet.contains(secondWord)) {
-                commonWords.add(secondWord);
+                commonWords.add(getWordWithSpace(secondWord));
             }
         }
         return commonWords;
     }
 
-    private static SortedSet<String> getCommonWordsWithSpace(SortedSet<String> commonWords) {
-        SortedSet<String> commonWordsWithSpace = new TreeSet<>();
-        for (String commonWord : commonWords) {
-            final String[] commonWordSplit = commonWord.split("");
-            commonWordsWithSpace.add(getWordWithSpace(commonWordSplit));
-        }
-        return commonWordsWithSpace;
-    }
-
-    private static String getWordWithSpace(String[] commonWord) {
+    private static String getWordWithSpace(String commonWord) {
         StringBuilder wordWithSpace = new StringBuilder();
-        Arrays.stream(commonWord).forEach((word) -> wordWithSpace.append(word).append(" "));
+        Arrays.stream(commonWord.split("")).forEach((word) -> wordWithSpace.append(word).append(" "));
         return wordWithSpace.toString().trim();
     }
 }
