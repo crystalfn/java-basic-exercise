@@ -39,11 +39,11 @@ public class GrammarExercise {
     }
 
     private static SortedSet<String> getCommonWords(String[] firstWords, String[] secondWords) {
-        final Set<String> firstWordsSet = Arrays.stream(firstWords).collect(Collectors.toSet());
+        final Set<String> secondWordsSet = Arrays.stream(secondWords).collect(Collectors.toSet());
         final SortedSet<String> commonWords = new TreeSet<>();
-        for (String secondWord : secondWords) {
-            if (firstWordsSet.contains(secondWord)) {
-                commonWords.add(getWordWithSpace(secondWord));
+        for (String firstWord : firstWords) {
+            if (secondWordsSet.contains(firstWord)) {
+                commonWords.add(getWordWithSpace(firstWord));
             }
         }
         return commonWords;
